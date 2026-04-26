@@ -1,37 +1,43 @@
 {
-    "name": "folivoro/shift",
-    "description": "Keeps your WordPress projects up to date with Sloth. Automatically.",
-    "type": "rector-extension",
-    "require": {
-        "php": "^8.2",
-        "rector/rector": "^2.4"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^13.1"
-    },
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Folivoro\\Shift\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Folivoro\\Shift\\Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "php-http/http-client-integration": true,
-            "symfony/flex": true
-        }
-    },
-    "authors": [
-        {
-            "name": "Ben Kremer",
-            "email": "git@benkremer.de"
-        }
-    ],
-    "minimum-stability": "stable",
-    "prefer-stable": true
+  "name": "folivoro/shift",
+  "description": "Keeps your WordPress projects up to date with Sloth. Automatically.",
+  "license": "MIT",
+  "type": "rector-extension",
+  "authors": [
+    {
+      "name": "Ben Kremer",
+      "email": "git@benkremer.de"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "rector/rector": "^2.4"
+  },
+  "require-dev": {
+    "pestphp/pest": "^4.6",
+    "phpunit/phpunit": "^12.5.22"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Folivoro\\Shift\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Folivoro\\Shift\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "php-http/http-client-integration": true,
+      "symfony/flex": true
+    }
+  },
+  "scripts": {
+    "test": "pest",
+    "test:coverage": "pest --coverage --coverage-html build/coverage"
+  }
 }

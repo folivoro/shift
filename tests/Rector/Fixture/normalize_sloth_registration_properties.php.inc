@@ -9,5 +9,5 @@ class Page extends Model
 
 class Page extends Model
 {
-    public static $options = ['public' => true];
+    public static array $options = ['public' => true];
 }

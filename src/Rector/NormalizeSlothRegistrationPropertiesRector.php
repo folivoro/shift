@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Folivoro\Shift\Rector;
 
 use PhpParser\Node;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use Rector\Privatization\NodeManipulator\VisibilityManipulator;
@@ -16,6 +17,8 @@ final class NormalizeSlothRegistrationPropertiesRector extends AbstractRector
 {
     private const MODEL_PROPERTIES = ['layotter', 'options', 'names', 'labels', 'icon', 'register', 'postType'];
     private const TAXONOMY_PROPERTIES = ['postTypes', 'unique', 'options', 'names', 'labels', 'register'];
+
+    private const ARRAY_PROPERTIES = ['layotter', 'options', 'names', 'labels', 'postTypes', 'register'];
 
     public function __construct(
         private readonly VisibilityManipulator $visibilityManipulator
@@ -89,7 +92,13 @@ CODE_SAMPLE
                 continue;
             }
 
-            $stmt->type = null;
+            if (in_array($propertyName, self::ARRAY_PROPERTIES, true)) {
+                if ($stmt->type === null) {
+                    $stmt->type = new Name('array');
+                }
+            } else {
+                $stmt->type = null;
+            }
 
             if (!$stmt->isPublic()) {
                 $this->visibilityManipulator->makePublic($stmt);
